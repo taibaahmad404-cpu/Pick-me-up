@@ -1,0 +1,286 @@
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hey Archaeopteryx 👀</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+```
+:root {
+  --purple-light: #EEEDFE;
+  --purple-mid: #AFA9EC;
+  --purple: #7F77DD;
+  --purple-dark: #534AB7;
+  --purple-deep: #3C3489;
+  --bg: #faf9ff;
+  --card: #ffffff;
+  --text: #1a1830;
+  --muted: #6b6880;
+  --border: rgba(127,119,221,0.18);
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Soft background blobs */
+body::before, body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
+body::before {
+  width: 400px; height: 400px;
+  background: rgba(127,119,221,0.12);
+  top: -100px; left: -100px;
+}
+body::after {
+  width: 350px; height: 350px;
+  background: rgba(175,169,236,0.1);
+  bottom: -80px; right: -80px;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  padding: 1.5rem;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  box-shadow: 0 8px 40px rgba(83,74,183,0.08), 0 2px 8px rgba(83,74,183,0.04);
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Screens */
+.screen { display: none; width: 100%; flex-direction: column; align-items: center; animation: fadeUp 0.45s cubic-bezier(.22,.68,0,1.2); }
+.screen.active { display: flex; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.emoji-big { font-size: 54px; margin-bottom: 1.2rem; line-height: 1; }
+
+.badge {
+  display: inline-block;
+  background: var(--purple-light);
+  color: var(--purple-deep);
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  border-radius: 100px;
+  margin-bottom: 1.2rem;
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+  margin-bottom: 0.75rem;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 2rem;
+}
+.subtitle em { color: var(--purple-dark); font-style: italic; }
+
+.divider {
+  width: 36px; height: 2px;
+  background: var(--purple-mid);
+  border-radius: 2px;
+  margin: 0 auto 1.5rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 11px 28px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  margin: 5px;
+}
+.btn:hover { background: var(--purple-light); border-color: var(--purple-mid); color: var(--purple-deep); transform: translateY(-1px); }
+.btn:active { transform: scale(0.97) translateY(0); }
+
+.btn-primary {
+  background: var(--purple);
+  color: #fff;
+  border-color: var(--purple);
+  box-shadow: 0 4px 16px rgba(127,119,221,0.3);
+}
+.btn-primary:hover { background: var(--purple-dark); border-color: var(--purple-dark); color: #fff; box-shadow: 0 6px 20px rgba(83,74,183,0.35); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border-color: transparent;
+  font-size: 13px;
+  padding: 8px 18px;
+}
+.btn-ghost:hover { background: #f3f2ff; color: var(--muted); border-color: transparent; }
+
+/* Time grid */
+.time-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+.time-btn {
+  padding: 16px 8px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  line-height: 1.4;
+}
+.time-btn:hover {
+  border-color: var(--purple);
+  background: var(--purple-light);
+  color: var(--purple-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(127,119,221,0.15);
+}
+.time-btn:active { transform: scale(0.97); }
+
+/* Ending screen */
+.ending-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--purple-dark);
+  line-height: 1.4;
+  margin: 0.6rem 0 0.5rem;
+}
+.note {
+  font-size: 12px;
+  color: var(--purple-mid);
+  margin-top: 1.5rem;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 480px) {
+  .card { padding: 2.5rem 1.5rem; }
+  h1 { font-size: 20px; }
+}
+```
+
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="card">
+
+```
+<!-- Screen 1 -->
+<div id="s1" class="screen active">
+  <div class="emoji-big">🛵</div>
+  <div class="badge">Hey Archaeopteryx 👀</div>
+  <h1>I have one very important question...</h1>
+  <p class="subtitle">No small talk. No beating around the bush.<br>Just one simple request. Are you ready?</p>
+  <button class="btn btn-primary" onclick="go(2)">Sure, go ahead →</button>
+</div>
+
+<!-- Screen 2 -->
+<div id="s2" class="screen">
+  <div class="emoji-big">🤔</div>
+  <h1>Archaeopteryx, don't overthink it</h1>
+  <p class="subtitle">I know you're always "busy".<br>But some things deserve a little effort —<br><em>especially picking me up.</em></p>
+  <div class="divider"></div>
+  <button class="btn btn-primary" onclick="go(3)">Okay okay, what is it? →</button>
+</div>
+
+<!-- Screen 3 -->
+<div id="s3" class="screen">
+  <div class="emoji-big">🚗💨</div>
+  <h1>So... when are you coming to pick me up? 👀</h1>
+  <p class="subtitle">Pick a time, Archaeopteryx — no excuses accepted.</p>
+  <div class="time-grid">
+    <button class="time-btn" onclick="pick('This evening')">This evening 🌆</button>
+    <button class="time-btn" onclick="pick('Tomorrow morning')">Tomorrow morning ☀️</button>
+    <button class="time-btn" onclick="pick('This weekend')">This weekend 🎉</button>
+    <button class="time-btn" onclick="pick('Right now!')">Right now! 🏃</button>
+  </div>
+  <button class="btn btn-ghost" onclick="go(4)">I can't make it... 😐</button>
+</div>
+
+<!-- Screen 4 -->
+<div id="s4" class="screen">
+  <div class="emoji-big">😐</div>
+  <h1>"Can't make it" is not an option, Archaeopteryx</h1>
+  <p class="subtitle">Think again.<br>I'm very patient... but only slightly.</p>
+  <button class="btn btn-primary" onclick="go(3)">Fine, let me reconsider 😅</button>
+</div>
+
+<!-- Screen 5 -->
+<div id="s5" class="screen">
+  <div class="emoji-big">😂🦕</div>
+  <h1 id="yay-msg"></h1>
+  <div class="ending-title">Kya Aashiq Banega Re Tu,<br>Archaeopteryx! 😭💀</div>
+  <p class="subtitle" style="margin-top:1rem;">Itna drama karke finally pick karne aaya?<br>Shakespeare bhi sharminda ho jaata. 🎭</p>
+  <p class="note">No backing out now. I have receipts. 👀</p>
+</div>
+```
+
+  </div>
+</div>
+
+<script>
+  function go(n) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('s' + n).classList.add('active');
+  }
+  function pick(time) {
+    document.getElementById('yay-msg').textContent = time + '?! Theek hai, chal!';
+    go(5);
+  }
+</script>
+
+</body>
+</html>
